@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo — LB MARCAS</title>
+  <meta name="description" content="Catálogo completo da LB MARCAS: camisetas masculinas e femininas, bermudas, calças, moletons, tênis esportivos e casuais, chinelos, bonés e acessórios. Filtre por marca, tamanho e preço." />
+  <meta name="theme-color" content="#080808" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080808'/%3E%3Crect x='8' y='8' width='48' height='48' fill='%23FF6A00'/%3E%3Ctext x='32' y='41' font-family='Arial Black,Arial' font-size='22' font-weight='900' text-anchor='middle' fill='%23080808'%3ELB%3C/text%3E%3C/svg%3E" />
+</head>
+<body data-page="catalogo">
+  <div data-header></div>
+
+  <main>
+    <section class="page-hero">
+      <div class="shell">
+        <nav class="breadcrumb" aria-label="Você está aqui">
+          <a href="index.html">Início</a><span>/</span><span>Catálogo</span>
+        </nav>
+        <span class="eyebrow">Coleção completa</span>
+        <h1>Catálogo <em style="font-style:normal;color:var(--orange)">LB MARCAS</em></h1>
+        <p>
+          Roupas, tênis e acessórios de marcas esportivas e casuais. Use os filtros para encontrar
+          sua numeração, marca e faixa de preço — depois é só consultar pelo WhatsApp.
+        </p>
+      </div>
+    </section>
+
+    <!-- Barra flutuante de filtros -->
+    <div class="filter-bar">
+      <div class="shell filter-bar-inner">
+        <span class="filter-bar-label">Filtros rápidos</span>
+        <select class="quick-select" data-quick="categoria" aria-label="Filtrar por categoria">
+          <option value="">Categoria</option>
+        </select>
+        <select class="quick-select" data-quick="marca" aria-label="Filtrar por marca">
+          <option value="">Marca</option>
+        </select>
+        <select class="quick-select" data-quick="tamanho" aria-label="Filtrar por tamanho">
+          <option value="">Tamanho</option>
+        </select>
+        <select class="quick-select" data-quick="ordenar" aria-label="Ordenar produtos">
+          <option value="novos">Mais recentes</option>
+          <option value="menor-preco">Menor preço</option>
+          <option value="maior-preco">Maior preço</option>
+          <option value="desconto">Maior desconto</option>
+        </select>
+        <button class="btn btn-primary btn-sm filter-open" type="button" data-filter-open>Filtros</button>
+        <span class="filter-results"><b data-result-count>0</b> produtos</span>
+      </div>
+    </div>
+
+    <div class="shell catalog-layout">
+      <aside class="filters" id="filters" aria-label="Filtros do catálogo">
+        <div class="filters-head">
+          <h2>Refinar</h2>
+          <button type="button" data-clear-filters>Limpar tudo</button>
+        </div>
+
+        <div class="filter-group">
+          <h3>Categoria</h3>
+          <div class="filter-options" data-filter-categories></div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Marca</h3>
+          <div class="filter-options" data-filter-brands></div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Tamanho / Numeração</h3>
+          <div class="filter-options" data-filter-sizes></div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Preço até</h3>
+          <div class="price-range">
+            <input type="range" min="100" max="1300" step="50" value="1300" data-price-range aria-label="Preço máximo" />
+            <output data-price-output>R$ 1.300,00</output>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Novidades</h3>
+          <div class="filter-options">
+            <label class="filter-option">
+              <input type="checkbox" value="1" data-filter-new />
+              <span>Somente lançamentos</span>
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" value="1" data-filter-offers />
+              <span>Somente em oferta</span>
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-solid btn-block filter-cta" type="button" data-filter-apply>Ver resultados</button>
+      </aside>
+
+      <section>
+        <div class="catalog-toolbar">
+          <h2 data-toolbar-title>Todos os produtos</h2>
+          <span class="count" data-toolbar-count></span>
+        </div>
+        <div class="product-grid product-grid--3" data-catalog-grid></div>
+      </section>
+    </div>
+  </main>
+
+  <div data-footer></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/catalog.js"></script>
+</body>
+</html>

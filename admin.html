@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel administrativo — LB MARCAS</title>
+  <meta name="description" content="Painel administrativo da LB MARCAS: cadastro de produtos, preços, fotografias e estoque." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#080808" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080808'/%3E%3Crect x='8' y='8' width='48' height='48' fill='%23FF6A00'/%3E%3Ctext x='32' y='41' font-family='Arial Black,Arial' font-size='22' font-weight='900' text-anchor='middle' fill='%23080808'%3ELB%3C/text%3E%3C/svg%3E" />
+</head>
+<body data-page="admin" class="admin-body">
+  <div data-header></div>
+
+  <main class="admin-main">
+    <!-- LOGIN -->
+    <section class="admin-login" data-login-view>
+      <div class="shell">
+        <div class="login-card">
+          <span class="eyebrow">Área restrita</span>
+          <h1>Painel <em style="font-style:normal;color:var(--orange)">administrativo</em></h1>
+          <p>Gerencie produtos, preços, fotografias e estoque da LB MARCAS.</p>
+          <form data-login-form>
+            <div class="field">
+              <label for="adminPassword">Senha de acesso</label>
+              <input id="adminPassword" name="senha" type="password" placeholder="••••••••" autocomplete="current-password" required />
+            </div>
+            <button class="btn btn-solid btn-block" type="submit">Entrar no painel</button>
+            <p class="form-note" data-login-error hidden style="color:#ff7c7c">Senha incorreta. Tente novamente.</p>
+          </form>
+          <p class="login-hint">
+            Demonstração: a senha inicial é <b>lb2024</b>. O acesso é local ao navegador —
+            em produção, use autenticação real no servidor.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAINEL -->
+    <section class="admin-view" data-admin-view hidden>
+      <div class="shell">
+        <div class="admin-head">
+          <div>
+            <span class="eyebrow">Command center</span>
+            <h1>Painel LB MARCAS</h1>
+            <p>Catálogo local · <span data-admin-owner></span></p>
+          </div>
+          <div class="admin-head-actions">
+            <button class="btn btn-ghost btn-sm" type="button" data-logout>Sair</button>
+            <button class="btn btn-solid btn-sm" type="button" data-new-product>+ Novo produto</button>
+          </div>
+        </div>
+
+        <div class="admin-stats">
+          <article class="stat-card">
+            <span>Produtos</span>
+            <strong data-stat-products>0</strong>
+            <div class="stat-bar"><i style="width:100%"></i></div>
+          </article>
+          <article class="stat-card">
+            <span>Unidades em estoque</span>
+            <strong data-stat-stock>0</strong>
+            <div class="stat-bar"><i data-stat-stock-bar style="width:70%"></i></div>
+          </article>
+          <article class="stat-card">
+            <span>Em oferta</span>
+            <strong data-stat-offers>0</strong>
+            <div class="stat-bar"><i data-stat-offers-bar style="width:40%"></i></div>
+          </article>
+          <article class="stat-card">
+            <span>Lançamentos</span>
+            <strong data-stat-new>0</strong>
+            <div class="stat-bar"><i data-stat-new-bar style="width:30%"></i></div>
+          </article>
+        </div>
+
+        <div class="admin-toolbar">
+          <input class="admin-search" type="search" placeholder="Buscar por nome, marca ou categoria…" data-admin-search />
+          <select class="quick-select" data-admin-filter>
+            <option value="">Todas as categorias</option>
+          </select>
+          <div class="admin-toolbar-actions">
+            <button class="btn btn-ghost btn-sm" type="button" data-export>Exportar JSON</button>
+            <label class="btn btn-ghost btn-sm" style="cursor:pointer">
+              Importar JSON
+              <input type="file" accept="application/json" data-import hidden />
+            </label>
+            <button class="btn btn-ghost btn-sm" type="button" data-reset>Restaurar catálogo</button>
+          </div>
+        </div>
+
+        <p class="admin-warning">
+          <strong>Atenção:</strong> este site é estático (HTML/CSS/JS). As alterações do painel ficam salvas
+          no armazenamento local deste navegador e não são publicadas para os clientes. Para valer para
+          todos os visitantes, é necessário conectar um banco de dados/back-end ou publicar o catálogo
+          atualizado junto com o site.
+        </p>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th scope="col">Produto</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Estoque</th>
+                <th scope="col">Tags</th>
+                <th scope="col"><span class="sr-only">Ações</span></th>
+              </tr>
+            </thead>
+            <tbody data-admin-rows></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL PRODUTO -->
+  <div class="admin-modal" data-modal hidden>
+    <div class="admin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="admin-modal-head">
+        <h2 id="modalTitle" data-modal-title>Novo produto</h2>
+        <button class="icon-btn" type="button" data-modal-close aria-label="Fechar">✕</button>
+      </div>
+
+      <form class="admin-form" data-product-form>
+        <input type="hidden" name="id" />
+        <div class="field-row">
+          <div class="field">
+            <label for="pName">Nome do produto</label>
+            <input id="pName" name="name" type="text" required placeholder="Camiseta Oversized Skeleton" />
+          </div>
+          <div class="field">
+            <label for="pBrand">Marca</label>
+            <input id="pBrand" name="brand" type="text" required list="brandList" placeholder="Nike" />
+            <datalist id="brandList"></datalist>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="pCategory">Categoria</label>
+            <select id="pCategory" name="category" required data-category-select></select>
+          </div>
+          <div class="field">
+            <label for="pStock">Estoque (unidades)</label>
+            <input id="pStock" name="stock" type="number" min="0" step="1" value="1" required />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="pPrice">Preço (R$)</label>
+            <input id="pPrice" name="price" type="number" min="0" step="0.01" required placeholder="229.90" />
+          </div>
+          <div class="field">
+            <label for="pPromo">Preço promocional (opcional)</label>
+            <input id="pPromo" name="promoPrice" type="number" min="0" step="0.01" placeholder="189.90" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pShort">Resumo curto (aparece nos cards e no Google)</label>
+          <input id="pShort" name="short" type="text" placeholder="Camiseta oversized de algodão pesado com estampa frontal." />
+        </div>
+
+        <div class="field">
+          <label for="pImages">Fotografias (uma URL por linha)</label>
+          <textarea id="pImages" name="images" rows="3" placeholder="https://…/foto-1.jpg&#10;https://…/foto-2.jpg"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="pDescription">Descrição detalhada</label>
+          <textarea id="pDescription" name="description" rows="4"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="pMaterial">Material / informações técnicas</label>
+          <textarea id="pMaterial" name="material" rows="2"></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="pSizes">Tamanhos / numeração (separados por vírgula)</label>
+            <input id="pSizes" name="sizes" type="text" placeholder="P, M, G, GG" />
+          </div>
+          <div class="field">
+            <label for="pColors">Cores (Nome:#hex, uma por vírgula)</label>
+            <input id="pColors" name="colors" type="text" placeholder="Preto:#111111, Off-white:#E8E4DC" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pBenefits">Características e benefícios (um por linha)</label>
+          <textarea id="pBenefits" name="benefits" rows="3"></textarea>
+        </div>
+
+        <div class="admin-checks">
+          <label><input type="checkbox" name="badgeNew" value="1" /> Marcar como lançamento</label>
+          <label><input type="checkbox" name="badgeBest" value="1" /> Marcar como mais vendido</label>
+        </div>
+
+        <div class="admin-form-actions">
+          <button class="btn btn-ghost" type="button" data-modal-close>Cancelar</button>
+          <button class="btn btn-solid" type="submit" data-save-product>Salvar produto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

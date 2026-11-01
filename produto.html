@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produto — LB MARCAS</title>
+  <meta name="description" content="Detalhes completos do produto: descrição, material, tamanhos, cores e consulta direta pelo WhatsApp na LB MARCAS." />
+  <meta name="theme-color" content="#080808" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080808'/%3E%3Crect x='8' y='8' width='48' height='48' fill='%23FF6A00'/%3E%3Ctext x='32' y='41' font-family='Arial Black,Arial' font-size='22' font-weight='900' text-anchor='middle' fill='%23080808'%3ELB%3C/text%3E%3C/svg%3E" />
+</head>
+<body data-page="produto">
+  <div data-header></div>
+
+  <main class="pdp">
+    <div class="shell">
+      <nav class="breadcrumb" aria-label="Você está aqui">
+        <a href="index.html">Início</a><span>/</span>
+        <a href="catalogo.html">Catálogo</a><span>/</span>
+        <span data-crumb>Produto</span>
+      </nav>
+
+      <div class="pdp-grid" id="pdpGrid">
+        <!-- galeria -->
+        <div>
+          <div class="gallery-main">
+            <img data-gallery-main src="" alt="" />
+          </div>
+          <div class="gallery-thumbs" data-gallery-thumbs></div>
+        </div>
+
+        <!-- informações -->
+        <div class="pdp-info">
+          <span class="pdp-brand" data-product-brand></span>
+          <h1 class="pdp-title" data-product-title></h1>
+          <p style="color:var(--grey);margin-bottom:1.25rem" data-product-short></p>
+
+          <div class="pdp-price">
+            <s data-price-old hidden></s>
+            <strong data-price-now></strong>
+            <span class="off" data-price-off hidden></span>
+          </div>
+          <p class="pdp-installments" data-installments></p>
+          <p class="pdp-installments" style="margin-top:.25rem">
+            Consulte formas de pagamento e entrega pelo WhatsApp.
+          </p>
+
+          <div class="pdp-block">
+            <div class="pdp-block-head">
+              <h3>Tamanho / Numeração</h3>
+              <a href="#" data-size-guide>Guia de medidas</a>
+            </div>
+            <div class="size-options" data-sizes></div>
+          </div>
+
+          <div class="pdp-block">
+            <div class="pdp-block-head">
+              <h3>Cores disponíveis</h3>
+            </div>
+            <div class="color-options" data-colors></div>
+          </div>
+
+          <div class="pdp-actions">
+            <a class="wa-main" data-wa-main href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.74.46 3.44 1.32 4.94L2 22l5.36-1.4c1.44.78 3.06 1.2 4.68 1.2 5.44 0 9.84-4.4 9.84-9.84S17.48 2 12.04 2Zm4.42 12.02c-.24-.12-1.44-.72-1.66-.8-.22-.08-.38-.12-.54.12-.16.24-.62.8-.76.96-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.42-1.34-1.66-.14-.24-.02-.38.1-.5.12-.12.24-.28.36-.44.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.32-.74-1.8-.2-.46-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.68 2.68 4.1 3.66 2.02.82 2.44.66 2.88.62.44-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/></svg>
+              Consultar pelo WhatsApp
+            </a>
+            <a class="btn btn-ghost btn-block" data-wa-availability href="#" target="_blank" rel="noopener">
+              Consultar disponibilidade
+            </a>
+          </div>
+
+          <div class="pdp-note">
+            <span>Atendimento direto com Lucas Santana · resposta rápida no horário comercial.</span>
+          </div>
+
+          <div class="pdp-specs">
+            <details class="spec-item" open>
+              <summary>Descrição completa</summary>
+              <p data-product-description></p>
+            </details>
+            <details class="spec-item">
+              <summary>Informações técnicas</summary>
+              <p data-product-material></p>
+            </details>
+            <details class="spec-item">
+              <summary>Características e benefícios</summary>
+              <ul data-product-benefits></ul>
+            </details>
+            <details class="spec-item">
+              <summary>Tamanhos, numeração e estoque</summary>
+              <ul data-product-sizes></ul>
+            </details>
+            <details class="spec-item">
+              <summary>Trocas, pagamento e entrega</summary>
+              <p>
+                Trocas em até 7 dias corridos após o recebimento, com a peça sem uso e etiqueta.
+                Pagamento via Pix, cartão em até 6x (com juros da operadora) ou dinheiro na entrega
+                em Cabo Frio e região. Envio para todo o Brasil pelo WhatsApp.
+              </p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section section--tight" data-related-section hidden>
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Combina com</span>
+            <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem)">Você também vai <em>gostar</em></h2>
+          </div>
+          <a class="link-arrow" href="catalogo.html">Ver catálogo</a>
+        </div>
+        <div class="product-grid" data-related></div>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/product.js"></script>
+</body>
+</html>
