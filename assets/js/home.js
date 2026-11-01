@@ -75,7 +75,6 @@
   function init() {
     renderProducts('[data-new-arrivals]', LB.newArrivals(4));
     renderProducts('[data-best-sellers]', LB.bestSellers(4));
-    renderProducts('[data-deals]', LB.deals(4));
     renderCategories();
     renderBrands();
 
@@ -83,8 +82,6 @@
     document.querySelectorAll('[data-metric-products]').forEach((node) => {
       node.textContent = total;
     });
-    const offerCount = document.querySelector('[data-offer-count]');
-    if (offerCount) offerCount.textContent = LB.deals(99).length;
 
     initMagneticBadge();
     initQuickContact();

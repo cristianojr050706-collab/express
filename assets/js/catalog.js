@@ -6,8 +6,6 @@
   const params = new URLSearchParams(location.search);
   const grid = document.querySelector('[data-catalog-grid]');
   const filtersEl = document.getElementById('filters');
-  const priceRange = document.querySelector('[data-price-range]');
-  const priceOutput = document.querySelector('[data-price-output]');
 
   const state = {
     categoria: params.get('categoria') || '',
@@ -15,9 +13,7 @@
     tamanho: params.get('tamanho') || '',
     q: params.get('q') || '',
     ordenar: params.get('ordenar') || 'novos',
-    max: Number(params.get('preco')) || 1300,
     apenasNovos: params.get('novos') === '1' || state0CategoryIsNew(),
-    apenasOfertas: params.get('ofertas') === '1',
   };
 
   function state0CategoryIsNew() {
@@ -90,32 +86,19 @@
     document.querySelectorAll('[data-filter-new]').forEach((input) => {
       input.checked = state.apenasNovos;
     });
-    document.querySelectorAll('[data-filter-offers]').forEach((input) => {
-      input.checked = state.apenasOfertas;
-    });
-
-    if (priceRange) {
-      priceRange.value = state.max;
-      if (priceOutput) priceOutput.textContent = LBUI.brl(state.max);
-    }
   }
 
   /* ---------- Render ---------- */
 
   function currentList() {
-    let list = LB.filtered({
+    return LB.filtered({
       category: state.categoria,
       brand: state.marca,
       size: state.tamanho,
-      maxPrice: state.max < 1300 ? state.max : undefined,
       onlyNew: state.apenasNovos,
       search: state.q,
       sort: state.ordenar,
     });
-    if (state.apenasOfertas) {
-      list = list.filter((product) => LB.discount(product) > 0);
-    }
-    return list;
   }
 
   function syncUrl() {
@@ -125,9 +108,7 @@
     if (state.tamanho) query.set('tamanho', state.tamanho);
     if (state.q) query.set('q', state.q);
     if (state.ordenar && state.ordenar !== 'novos') query.set('ordenar', state.ordenar);
-    if (state.max < 1300) query.set('preco', state.max);
     if (state.apenasNovos) query.set('novos', '1');
-    if (state.apenasOfertas) query.set('ofertas', '1');
     const queryString = query.toString();
     history.replaceState(null, '', `catalogo.html${queryString ? `?${queryString}` : ''}`);
   }
@@ -215,22 +196,6 @@
       })
     );
 
-    document.querySelectorAll('[data-filter-offers]').forEach((input) =>
-      input.addEventListener('change', () => {
-        state.apenasOfertas = input.checked;
-        buildOptions();
-        render();
-      })
-    );
-
-    if (priceRange) {
-      priceRange.addEventListener('input', () => {
-        state.max = Number(priceRange.value);
-        if (priceOutput) priceOutput.textContent = LBUI.brl(state.max);
-      });
-      priceRange.addEventListener('change', render);
-    }
-
     document.querySelectorAll('[data-clear-filters]').forEach((button) =>
       button.addEventListener('click', () => {
         state.categoria = '';
@@ -238,9 +203,7 @@
         state.tamanho = '';
         state.q = '';
         state.ordenar = 'novos';
-        state.max = 1300;
         state.apenasNovos = false;
-        state.apenasOfertas = false;
         buildOptions();
         render();
       })

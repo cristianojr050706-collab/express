@@ -5,7 +5,7 @@
    ========================================================================== */
 
 const LB = (() => {
-  const KEY = 'lb_marcas_catalog_v1';
+  const KEY = 'lb_marcas_catalog_v2';
 
   const slugify = (text) =>
     text
@@ -87,17 +87,8 @@ const LB = (() => {
 
   const isNew = (product) => (product.badges || []).includes('lancamento');
 
-  function finalPrice(product) {
-    return product.promoPrice && product.promoPrice < product.price ? product.promoPrice : product.price;
-  }
-
-  function discount(product) {
-    if (!product.promoPrice || product.promoPrice >= product.price) return 0;
-    return Math.round((1 - product.promoPrice / product.price) * 100);
-  }
-
   function filtered(filters = {}) {
-    const { category, brand, size, minPrice, maxPrice, onlyNew, search, sort } = filters;
+    const { category, brand, size, onlyNew, search, sort } = filters;
     let list = all();
 
     if (category && category !== 'lancamentos') {
@@ -112,12 +103,6 @@ const LB = (() => {
     if (size) {
       list = list.filter((product) => (product.sizes || []).includes(size));
     }
-    if (typeof minPrice === 'number') {
-      list = list.filter((product) => finalPrice(product) >= minPrice);
-    }
-    if (typeof maxPrice === 'number') {
-      list = list.filter((product) => finalPrice(product) <= maxPrice);
-    }
     if (search) {
       const term = slugify(search);
       list = list.filter((product) =>
@@ -127,9 +112,7 @@ const LB = (() => {
 
     const sorters = {
       novos: (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-      'menor-preco': (a, b) => finalPrice(a) - finalPrice(b),
-      'maior-preco': (a, b) => finalPrice(b) - finalPrice(a),
-      desconto: (a, b) => discount(b) - discount(a),
+      'a-z': (a, b) => a.name.localeCompare(b.name, 'pt-BR'),
     };
     list = list.slice().sort(sorters[sort] || sorters.novos);
     return list;
@@ -145,13 +128,6 @@ const LB = (() => {
   function bestSellers(limit = 4) {
     return all()
       .filter((product) => (product.badges || []).includes('mais-vendido'))
-      .slice(0, limit);
-  }
-
-  function deals(limit = 4) {
-    return all()
-      .filter((product) => discount(product) > 0)
-      .sort((a, b) => discount(b) - discount(a))
       .slice(0, limit);
   }
 
@@ -188,12 +164,9 @@ const LB = (() => {
     reset,
     replaceAll,
     isNew,
-    finalPrice,
-    discount,
     filtered,
     newArrivals,
     bestSellers,
-    deals,
     related,
     allSizes,
     searchCount,

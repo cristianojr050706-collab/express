@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catálogo — LB MARCAS</title>
-  <meta name="description" content="Catálogo completo da LB MARCAS: camisetas masculinas e femininas, bermudas, calças, moletons, tênis esportivos e casuais, chinelos, bonés e acessórios. Filtre por marca, tamanho e preço." />
+  <meta name="description" content="Catálogo masculino da LB MARCAS: camisetas, bermudas, calças, moletons, tênis, chinelos e acessórios Nike, Adidas, Gucci, Balenciaga, Prada e Louis Vuitton. Filtre por marca, tamanho e categoria." />
   <meta name="theme-color" content="#080808" />
   <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,8 +25,8 @@
         <span class="eyebrow">Coleção completa</span>
         <h1>Catálogo <em style="font-style:normal;color:var(--orange)">LB MARCAS</em></h1>
         <p>
-          Roupas, tênis e acessórios de marcas esportivas e casuais. Use os filtros para encontrar
-          sua numeração, marca e faixa de preço — depois é só consultar pelo WhatsApp.
+          Moda masculina de Nike, Adidas, Gucci, Balenciaga, Prada e Louis Vuitton. Use os filtros
+          para encontrar sua numeração e marca — depois é só consultar valores e disponibilidade pelo WhatsApp.
         </p>
       </div>
     </section>
@@ -46,9 +46,7 @@
         </select>
         <select class="quick-select" data-quick="ordenar" aria-label="Ordenar produtos">
           <option value="novos">Mais recentes</option>
-          <option value="menor-preco">Menor preço</option>
-          <option value="maior-preco">Maior preço</option>
-          <option value="desconto">Maior desconto</option>
+          <option value="a-z">A – Z</option>
         </select>
         <button class="btn btn-primary btn-sm filter-open" type="button" data-filter-open>Filtros</button>
         <span class="filter-results"><b data-result-count>0</b> produtos</span>
@@ -78,23 +76,11 @@
         </div>
 
         <div class="filter-group">
-          <h3>Preço até</h3>
-          <div class="price-range">
-            <input type="range" min="100" max="1300" step="50" value="1300" data-price-range aria-label="Preço máximo" />
-            <output data-price-output>R$ 1.300,00</output>
-          </div>
-        </div>
-
-        <div class="filter-group">
           <h3>Novidades</h3>
           <div class="filter-options">
             <label class="filter-option">
               <input type="checkbox" value="1" data-filter-new />
               <span>Somente lançamentos</span>
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" value="1" data-filter-offers />
-              <span>Somente em oferta</span>
             </label>
           </div>
         </div>

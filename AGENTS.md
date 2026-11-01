@@ -39,7 +39,9 @@ docker compose -f docker-compose.base44.yml up -d
 - **Slug do produto é derivado do nome** (`LB.slugify(product.name)`), não existe campo `slug`.
   As URLs dos produtos usam `produto.html?p=<slug>`; renomear um produto quebra links antigos.
 - **O catálogo base fica em `assets/js/data.js`; o painel salva alterações em `localStorage`**
-  na chave `lb_marcas_catalog_v1`. O site lê o `localStorage` quando existe, senão usa o catálogo base.
+  na chave `lb_marcas_catalog_v2`. O site lê o `localStorage` quando existe, senão usa o catálogo base.
+  **Produtos não têm preço** (só catálogo masculino + atendimento no WhatsApp); qualquer código novo
+  não deve reintroduzir `price` / `promoPrice`.
   Isso é local ao navegador: para publicar edições para todos os clientes é necessário um backend
   ou atualizar `data.js` e republicar. O botão "Restaurar catálogo" apaga a chave e volta ao base.
 - **Senha do painel:** `STORE.adminPassword` em `data.js` (`lb2024`), sessão em `sessionStorage`
@@ -53,8 +55,8 @@ docker compose -f docker-compose.base44.yml up -d
 ## Verificação recomendada
 
 1. `curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/catalogo.html` → `200`.
-2. Catálogo: selecionar categoria "Tênis Esportivos" deve reduzir a lista a 2 produtos e
-   atualizar a URL (`?categoria=tenis-esportivos`).
+2. Catálogo: selecionar categoria "Tênis" deve reduzir a lista a 6 produtos e
+   atualizar a URL (`?categoria=tenis`).
 3. Produto: escolher numeração e cor deve mudar o link do botão "Consultar pelo WhatsApp",
    com produto, marca, tamanho e cor na mensagem.
 4. Painel (`admin.html`, senha `lb2024`): cadastrar um produto aumenta o total em 1 e ele

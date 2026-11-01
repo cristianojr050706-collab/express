@@ -8,17 +8,17 @@ Loja virtual de roupas, tênis e acessórios esportivos — site estático em **
 ## O que está incluído
 
 - **Home** com hero de impacto, faixa de marcas, lançamentos, categorias, mais vendidos,
-  ofertas especiais, seção de marcas, apresentação da loja e contato rápido.
-- **Catálogo** com busca, filtros por categoria, marca, tamanho/numeração, preço máximo,
-  apenas lançamentos e apenas ofertas, além de ordenação por preço, desconto e novidade.
+  seção de marcas, apresentação da loja e contato rápido.
+- **Catálogo masculino** com busca, filtros por categoria, marca e tamanho/numeração,
+  além de ordenação por novidade e A–Z. **Sem preços**: o valor é informado no WhatsApp.
 - **Página de produto** com galeria de fotos, descrição completa, informações técnicas,
   características, tamanhos, cores, estoque e botão de consulta pelo WhatsApp
-  (mensagem já preenchida com produto, marca, tamanho, cor e preço).
-- **Lançamentos** com etiqueta laranja de novidade e ofertas da semana.
+  (mensagem já preenchida com produto, marca, tamanho e cor).
+- **Lançamentos** com etiqueta laranja de novidade.
 - **Contato** com WhatsApp, Instagram, e-mail, horário de atendimento e formulário que
   abre o WhatsApp com a mensagem pronta.
 - **Painel administrativo** (`admin.html`) para cadastrar, editar e excluir produtos,
-  preços, fotografias e estoque, com exportação/importação do catálogo em JSON.
+  fotografias e estoque, com exportação/importação do catálogo em JSON.
 - **SEO básico**: title e description por página, Open Graph, dados estruturados
   (`ClothingStore` e `Product`), HTML semântico, `robots.txt` e textos alternativos nas imagens.
 - **Responsivo** para celular, tablet e desktop, com animações suaves e respeito a
@@ -52,7 +52,7 @@ Acesse `/admin.html` e use a senha inicial **`lb2024`**
 | O quê | Onde |
 | --- | --- |
 | WhatsApp, Instagram, e-mail, horário, senha do painel | `STORE`, em `assets/js/data.js` |
-| Produtos, preços, fotos, tamanhos, estoque | `SEED_PRODUCTS`, em `assets/js/data.js` (ou pelo painel) |
+| Produtos, fotos, tamanhos, estoque | `SEED_PRODUCTS`, em `assets/js/data.js` (ou pelo painel) |
 | Categorias e marcas | `CATEGORIES` e `BRANDS`, em `assets/js/data.js` |
 | Cores, tipografia, espaçamentos | variáveis `:root` em `assets/css/style.css` |
 

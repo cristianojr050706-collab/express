@@ -91,7 +91,7 @@
   function renderStats() {
     const products = LB.all();
     const stock = products.reduce((total, product) => total + (Number(product.stock) || 0), 0);
-    const offers = products.filter((product) => LB.discount(product) > 0).length;
+    const bestSellers = products.filter((product) => (product.badges || []).includes('mais-vendido')).length;
     const launches = products.filter((product) => LB.isNew(product)).length;
 
     const setText = (selector, value) => {
@@ -101,15 +101,15 @@
 
     setText('[data-stat-products]', products.length);
     setText('[data-stat-stock]', stock);
-    setText('[data-stat-offers]', offers);
+    setText('[data-stat-best]', bestSellers);
     setText('[data-stat-new]', launches);
 
     const maxStock = Math.max(1, ...products.map((product) => Number(product.stock) || 0));
     const stockBar = $('[data-stat-stock-bar]');
     if (stockBar) stockBar.style.width = `${Math.min(100, Math.round((stock / (maxStock * products.length || 1)) * 100))}%`;
 
-    const offersBar = $('[data-stat-offers-bar]');
-    if (offersBar) offersBar.style.width = `${Math.round((offers / (products.length || 1)) * 100)}%`;
+    const bestBar = $('[data-stat-best-bar]');
+    if (bestBar) bestBar.style.width = `${Math.round((bestSellers / (products.length || 1)) * 100)}%`;
 
     const newBar = $('[data-stat-new-bar]');
     if (newBar) newBar.style.width = `${Math.round((launches / (products.length || 1)) * 100)}%`;
@@ -130,7 +130,7 @@
     }
 
     if (!products.length) {
-      rowsEl.innerHTML = `<tr><td colspan="7"><p class="admin-empty">Nenhum produto encontrado.</p></td></tr>`;
+      rowsEl.innerHTML = `<tr><td colspan="6"><p class="admin-empty">Nenhum produto encontrado.</p></td></tr>`;
       return;
     }
 
@@ -140,7 +140,6 @@
         const tags = [];
         if (LB.isNew(product)) tags.push('<span class="admin-tag admin-tag--new">Lançamento</span>');
         if ((product.badges || []).includes('mais-vendido')) tags.push('<span class="admin-tag admin-tag--best">Mais vendido</span>');
-        if (LB.discount(product) > 0) tags.push(`<span class="admin-tag">-${LB.discount(product)}%</span>`);
 
         return `
           <tr>
@@ -155,10 +154,6 @@
             </td>
             <td>${escapeHtml(product.brand)}</td>
             <td>${category ? category.name : escapeHtml(product.category)}</td>
-            <td class="money">
-              ${LBUI.brl(LB.finalPrice(product))}
-              ${LB.discount(product) > 0 ? `<br /><small style="color:#6c6c6c;text-decoration:line-through">${LBUI.brl(product.price)}</small>` : ''}
-            </td>
             <td class="${(product.stock || 0) <= 5 ? 'stock-low' : ''}">${product.stock || 0} un.</td>
             <td><div class="admin-tags">${tags.join('') || '<span class="admin-tag">—</span>'}</div></td>
             <td>
@@ -206,8 +201,6 @@
       form.brand.value = product.brand;
       form.category.value = product.category;
       form.stock.value = product.stock;
-      form.price.value = product.price;
-      form.promoPrice.value = product.promoPrice || '';
       form.short.value = product.short || '';
       form.images.value = (product.images || []).join('\n');
       form.description.value = product.description || '';
@@ -259,8 +252,6 @@
       name: data.get('name').trim(),
       brand: data.get('brand').trim(),
       category: data.get('category'),
-      price: Number(data.get('price')),
-      promoPrice: data.get('promoPrice') ? Number(data.get('promoPrice')) : null,
       stock: Number(data.get('stock')),
       short: data.get('short').trim(),
       description: data.get('description').trim(),

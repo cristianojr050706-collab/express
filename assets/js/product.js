@@ -122,22 +122,8 @@
     setText('[data-product-brand]', product.brand);
     setText('[data-product-title]', product.name);
     setText('[data-product-short]', product.short || '');
-    setText('[data-price-now]', LBUI.brl(LB.finalPrice(product)));
-    setText('[data-installments]', `ou 3x de ${LBUI.brl(LB.finalPrice(product) / 3)} sem juros`);
     setText('[data-product-description]', product.description);
     setText('[data-product-material]', product.material);
-
-    const oldPrice = $('[data-price-old]');
-    const off = LB.discount(product);
-    if (oldPrice) {
-      oldPrice.hidden = off <= 0;
-      oldPrice.textContent = LBUI.brl(product.price);
-    }
-    const offTag = $('[data-price-off]');
-    if (offTag) {
-      offTag.hidden = off <= 0;
-      offTag.textContent = `-${off}%`;
-    }
 
     const benefits = $('[data-product-benefits]');
     if (benefits) {
@@ -188,12 +174,6 @@
       description: product.short,
       image: product.images,
       material: product.material,
-      offers: {
-        '@type': 'Offer',
-        price: LB.finalPrice(product).toFixed(2),
-        priceCurrency: 'BRL',
-        availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      },
     });
     document.head.appendChild(script);
   }

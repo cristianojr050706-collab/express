@@ -14,28 +14,6 @@
              <a class="btn btn-primary" href="catalogo.html">Ver catálogo</a></div>`;
     }
 
-    const offers = document.querySelector('[data-week-offers]');
-    if (offers) {
-      offers.innerHTML = LB.deals(6)
-        .map((product) => {
-          const off = LB.discount(product);
-          return `
-            <article class="offer-card reveal">
-              <img src="${product.images[0]}" alt="${product.name}" loading="lazy" />
-              <div class="offer-card-body">
-                <small>${product.brand} · -${off}%</small>
-                <h3>${product.name}</h3>
-                <div class="price">
-                  <s>${LBUI.brl(product.price)}</s>
-                  <strong>${LBUI.brl(LB.finalPrice(product))}</strong>
-                </div>
-                <a href="produto.html?p=${LB.slugify(product.name)}">Ver oferta →</a>
-              </div>
-            </article>`;
-        })
-        .join('');
-    }
-
     LBUI.observeReveals();
   }
 

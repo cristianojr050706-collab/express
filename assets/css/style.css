@@ -1266,10 +1266,13 @@ p {
   letter-spacing: -0.02em;
 }
 
-.card-installments {
-  margin: 0;
-  font-size: 0.72rem;
-  color: var(--grey-dim);
+.card-consult {
+  margin: 0.15rem 0 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
 }
 
 .card-sizes {

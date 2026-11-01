@@ -20,8 +20,7 @@ const LBUI = (() => {
     ];
     if (options.size) parts.push(`• Tamanho: ${options.size}`);
     if (options.color) parts.push(`• Cor: ${options.color}`);
-    parts.push(`• Valor no site: ${brl(LB.finalPrice(product))}`);
-    parts.push('', 'Poderia confirmar a disponibilidade?');
+    parts.push('', 'Poderia me informar o valor e confirmar a disponibilidade?');
     return parts.join('\n');
   }
 
@@ -191,11 +190,8 @@ const LBUI = (() => {
 
   function productCard(product) {
     const slug = LB.slugify(product.name);
-    const price = LB.finalPrice(product);
-    const off = LB.discount(product);
     const tags = [];
     if (LB.isNew(product)) tags.push('<span class="tag tag-new">Lançamento</span>');
-    if (off > 0) tags.push(`<span class="tag tag-off">-${off}%</span>`);
 
     return `
       <article class="product-card reveal" data-brand="${product.brand}" data-category="${product.category}">
@@ -208,11 +204,7 @@ const LBUI = (() => {
         <div class="card-body">
           <span class="card-brand">${product.brand}</span>
           <h3 class="card-title"><a href="produto.html?p=${slug}">${product.name}</a></h3>
-          <div class="card-price">
-            ${off > 0 ? `<s>${brl(product.price)}</s>` : ''}
-            <strong>${brl(price)}</strong>
-          </div>
-          <p class="card-installments">ou 3x de ${brl(price / 3)} sem juros</p>
+          <p class="card-consult">Valor e disponibilidade no WhatsApp</p>
           <div class="card-sizes">${(product.sizes || []).slice(0, 6).map((size) => `<span>${size}</span>`).join('')}</div>
           <a class="card-wa" href="${wa(productMessage(product))}" target="_blank" rel="noopener">
             ${icons.whatsapp}<span>Consultar pelo WhatsApp</span>
@@ -337,7 +329,6 @@ const LBUI = (() => {
             <span>
               <small>${product.brand}</small>
               <strong>${product.name}</strong>
-              <em>${brl(LB.finalPrice(product))}</em>
             </span>`;
           results.appendChild(link);
         });
